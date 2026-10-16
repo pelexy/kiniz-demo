@@ -297,3 +297,45 @@ footer{padding-block:70px 0}
 .faq details[open] summary::after{transform:rotate(45deg)}
 .faq p{color:var(--dim);margin:14px 0 0;max-width:62ch}
 @media (max-width:900px){.contact{grid-template-columns:1fr;gap:40px}}
+
+/* ── brand marks ── */
+.brand .mark{width:56px;height:auto}
+.flogo{width:170px;height:auto}
+/* ── hotel vs apartments ── */
+.doors{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.door{position:relative;min-height:560px;border-radius:24px;overflow:hidden;display:flex;align-items:flex-end;isolation:isolate;text-decoration:none}
+.door img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
+.door:hover img{transform:scale(1.06)}
+.door::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(10,13,12,.1) 30%,rgba(10,13,12,.94))}
+.door .in{padding:34px;width:100%}
+.door h3{font-size:clamp(2.4rem,4.2vw,3.6rem);margin:14px 0 10px}
+.door p{color:#d4d0c7;max-width:40ch;margin:0}
+.door .facts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:24px 0 0;padding:18px 0 0;border-top:1px solid var(--line)}
+.door .facts b{display:block;font:400 1.6rem/1.1 var(--display);color:var(--gold-2)}
+.door .facts span{font-size:.76rem;color:var(--dim);letter-spacing:.06em}
+@media (max-width:860px){.doors{grid-template-columns:1fr}.door{min-height:480px}}
+.pill{display:inline-block;border-radius:999px;padding:4px 12px;font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;border:1px solid}
+.pill.hotel{color:var(--pool);border-color:rgba(79,195,207,.45);background:rgba(79,195,207,.08)}
+.pill.apartment{color:var(--gold);border-color:rgba(224,176,100,.45);background:rgba(224,176,100,.08)}
+.pill.on-img{position:absolute;left:16px;top:16px;background:rgba(10,13,12,.7);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.tablewrap{overflow-x:auto;margin-top:10px;border:1px solid var(--line);border-radius:20px}
+.tablewrap table{width:100%;border-collapse:collapse;min-width:820px;font-size:.95rem}
+.tablewrap th{text-align:left;font-size:.68rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);padding:18px 20px;border-bottom:1px solid var(--line)}
+.tablewrap td{padding:16px 20px;border-bottom:1px solid var(--line);vertical-align:middle}
+.tablewrap tr:last-child td{border-bottom:0}
+.tablewrap tbody tr:hover{background:var(--night-3)}
+.tablewrap .n{text-align:right;font-variant-numeric:tabular-nums}
+.tablewrap td a{text-decoration:none;font-weight:600}
+.tablewrap td a:hover{color:var(--gold-2)}
+.meter{width:110px;height:6px;border-radius:3px;background:var(--line);overflow:hidden;margin-bottom:4px}
+.meter i{display:block;height:100%;border-radius:3px;background:var(--gold)}
+tr.hotel .meter i{background:var(--pool)}
+.tablewrap small{color:var(--dim);font-variant-numeric:tabular-nums}
+.btn.sm{padding:9px 16px;font-size:.7rem}
+.grp{font-size:.68rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin:18px 0 10px}
+.grp:first-child{margin-top:0}
+.sect-head{display:flex;align-items:end;justify-content:space-between;gap:20px;flex-wrap:wrap;padding-block:60px 10px}
+.sect-head h2{font-size:clamp(2.6rem,5vw,4.4rem);margin-top:14px}
+.sect-head p{max-width:46ch;color:var(--dim);margin:0}
+.pill{white-space:nowrap}
+@media (max-width:480px){.brand small{display:none}.brand .mark{width:46px}nav .btn{padding:10px 16px;font-size:.72rem}nav{gap:12px}}

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Kiniz Apartments &amp; Hotel, Uyo</title>
+<title>Kiniz Luxury Apartments &amp; Hotels, Uyo</title>
 <meta name="description" content="Luxury serviced apartments, a penthouse and rooms around a lit outdoor pool in Osong Ama Estate, Uyo. Book direct.">
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,14 +18,14 @@
     <div class="bg" role="img" aria-label="The Kiniz courtyard lit at night"></div>
     <div class="wrap hero-in">
       <span class="kicker reveal">Osong Ama Estate · Uyo</span>
-      <h1 class="reveal d2">Your <em>Uyo</em> address after dark.</h1>
-      <p class="reveal d3">Luxury apartments, a family penthouse and private rooms, set around a lit pool and bar in a quiet gated estate off Oron Road.</p>
+      <h1 class="reveal d2">Hotel rooms. <em>Whole</em> apartments.</h1>
+      <p class="reveal d3">A boutique hotel and serviced apartments in one gated estate in Uyo, around a lit pool and bar off Oron Road.</p>
 
       <form class="search reveal d4" id="f-search" novalidate>
         <div class="f"><label for="ci">Check in</label><input id="ci" type="date" required></div>
         <div class="f"><label for="co">Check out</label><input id="co" type="date" required></div>
         <div class="f"><label for="ad">Guests</label>
-          <select id="ad"><option value="1">1 guest</option><option value="2" selected>2 guests</option><option value="3">3 guests</option><option value="4">4 guests</option><option value="5">5 guests</option><option value="6">6 guests</option></select>
+          <select id="ad"><option value="1">1 guest</option><option value="2" selected>2 guests</option><option value="3">3 guests</option><option value="4">4 guests</option><option value="5">5 guests</option><option value="6">6 guests</option><option value="7">7 guests</option><option value="8">8 guests</option></select>
         </div>
         <button class="btn" type="submit" id="go">Check rooms</button>
       </form>
@@ -40,15 +40,15 @@
       <div>
         <span class="kicker">Welcome to Kiniz</span>
         <h2>Space to live, not just a room to sleep.</h2>
-        <p>Kiniz is a gated estate of apartments built for long weekends, work trips and family visits to Akwa Ibom. Cook in your own kitchen, spread out in a real living room, then end the night by the pool. Ibom E-Library and Ibom Hall are five minutes away.</p>
+        <p>Kiniz is two stays in one gated estate: hotel rooms for a quick work trip, and serviced apartments with kitchens and living rooms for families and long visits to Akwa Ibom. Everyone shares the pool, bar, restaurant and 24-hour front desk. Ibom E-Library and Ibom Hall are five minutes away.</p>
         <div class="nums">
-          <div><b>3</b><span>Ways to stay</span></div>
-          <div><b>6</b><span>Guests in the penthouse</span></div>
+          <div><b>5</b><span>Room and apartment types</span></div>
+          <div><b>8</b><span>Guests in the largest apartment</span></div>
           <div><b>24/7</b><span>Security and power</span></div>
         </div>
       </div>
       <div class="stack">
-        <img class="a" src="images/street.jpg" alt="The Kiniz buildings and gate at night" loading="lazy">
+        <img class="a" src="images/apt-4bed.jpg" alt="Living and dining room in a Kiniz apartment" loading="lazy">
         <img class="b" src="images/walkway.jpg" alt="Lamp-lit walkway between apartments" loading="lazy">
       </div>
     </div>
@@ -57,11 +57,25 @@
   <section class="rooms" id="stay">
     <div class="wrap">
       <div class="head">
-        <div><span class="kicker">Stay</span><h2>Rooms &amp; apartments</h2></div>
-        <p>Every unit has air conditioning, a smart TV, fast Wi-Fi, a kettle with tea and coffee, and an iron.</p>
+        <div><span class="kicker">Two ways to stay</span><h2>Hotel or apartment?</h2></div>
+        <p>Kiniz is a hotel and a set of serviced apartments in one gated estate. Same pool, same front desk. Choose the stay that fits your trip.</p>
       </div>
-      <div id="rooms"></div>
-      <a class="btn line" href="rooms.html" style="margin-top:40px">See every room</a>
+      <div class="doors">
+        <a class="door" href="rooms.html#hotel">
+          <img src="images/room-single.jpg" alt="Luxury single hotel room with king bed" loading="lazy">
+          <div class="in"><span class="pill hotel">The hotel</span><h3>Hotel rooms</h3>
+            <p>A private room with a king bed, cleaned every day, room service on call. For business trips and short stays.</p>
+            <div class="facts"><div><b>1</b><span>bedroom</span></div><div><b>2</b><span>guests</span></div><div><b data-from="hotel"></b><span>from / night</span></div></div></div>
+        </a>
+        <a class="door" href="rooms.html#apartments">
+          <img src="images/apt-3bed.jpg" alt="Living room of a serviced apartment" loading="lazy">
+          <div class="in"><span class="pill apartment">The apartments</span><h3>Serviced apartments</h3>
+            <p>A full home with its own kitchen and living room, one to four bedrooms. For families, groups and long stays.</p>
+            <div class="facts"><div><b>1–4</b><span>bedrooms</span></div><div><b>3–8</b><span>guests</span></div><div><b data-from="apartment"></b><span>from / night</span></div></div></div>
+        </a>
+      </div>
+      <div class="sect-head" style="padding-top:80px"><div><span class="kicker">Side by side</span><h2>Every stay, measured</h2></div><p>Sizes, bedrooms and guests for each room and apartment, so you can see the difference at a glance.</p></div>
+      <div class="tablewrap" id="compare"></div>
     </div>
   </section>
 
@@ -99,8 +113,8 @@
       <div class="gallery">
         <figure><img src="images/courtyard.jpg" alt="Courtyard and apartments at night" loading="lazy"><figcaption>The courtyard</figcaption></figure>
         <figure><img src="images/pool.jpg" alt="Pool and bar" loading="lazy"><figcaption>Pool &amp; bar</figcaption></figure>
-        <figure><img src="images/walkway.jpg" alt="Walkway with ground lamps" loading="lazy"><figcaption>Walkways</figcaption></figure>
-        <figure><img src="images/street.jpg" alt="Kiniz from the street" loading="lazy"><figcaption>Arrival</figcaption></figure>
+        <figure><img src="images/room-single.jpg" alt="Hotel room" loading="lazy"><figcaption>Hotel room</figcaption></figure>
+        <figure><img src="images/apt-4bed.jpg" alt="Apartment living and dining" loading="lazy"><figcaption>Apartment living</figcaption></figure>
       </div>
       <a class="btn line" href="gallery.html" style="margin-top:30px">Open the gallery</a>
     </div>
@@ -114,12 +128,13 @@
         <a class="btn line" href="https://www.google.com/maps/search/?api=1&query=Kiniz+Apartments+%26+Hotel+Uyo" target="_blank" rel="noopener">Open in Google Maps</a>
       </div>
       <dl>
-        <dt>Check in</dt><dd>From 2:00 pm</dd>
-        <dt>Check out</dt><dd>By 12:00 noon</dd>
+        <dt>Check in</dt><dd>From 3:00 pm</dd>
+        <dt>Check out</dt><dd>By 11:00 am</dd>
         <dt>Guests</dt><dd>Main guest 18 or older, with a valid ID</dd>
         <dt>Pets</dt><dd>Not allowed</dd>
         <dt>Smoking</dt><dd>Smoke-free rooms and indoor areas</dd>
-        <dt>Pay with</dt><dd>Card, bank transfer or cash at the front desk</dd>
+        <dt>Deposit</dt><dd>50% secures the booking, balance at check-in</dd>
+          <dt>Cancel</dt><dd>Free up to 48 hours before arrival</dd>
       </dl>
     </div>
   </section>

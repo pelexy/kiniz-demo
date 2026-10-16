@@ -3,21 +3,31 @@
    Left empty, the site runs on the sample rooms below so it can be shown. */
 const XENIA = { api: 'https://api.xenia.ng/api/v1/public/booking/v1', key: '' };
 
-/* Sample rooms until the key is set. Prices are placeholders: confirm with the hotel. */
+/* Rooms as listed for Kiniz online (Crystalbeds rates, Booking.com sizes). Confirm with the hotel.
+   kind: 'hotel' = hotel room, serviced daily, no kitchen. 'apartment' = a home with its own kitchen and living room. */
 const ROOMS = [
-  { roomTypeId:'lux', name:'Luxury Room', maxAdults:2, ratePerNight:45000, size:'1 bedroom', bed:'King-size bed',
-    lines:['King-size bed','Private en-suite bathroom','Work desk','Up to 2 guests'],
-    about:'A private room with a king-size bed and its own bathroom. Right for a work trip or a couple’s weekend in Uyo.',
-    has:['Air conditioning','Smart TV','Fast Wi-Fi','Kettle, tea and coffee','Iron and board','Rain shower','Work desk','Daily housekeeping'] },
-  { roomTypeId:'apt2', name:'Two-Bedroom Apartment', maxAdults:4, ratePerNight:120000, size:'2 bedrooms', bed:'2 double beds',
-    lines:['Two bedrooms, two bathrooms','Kitchen and living room','Balcony','Up to 4 guests'],
-    about:'A full home for four: two bedrooms, a living room for the evening and a kitchen to cook your own meals.',
-    has:['Fitted kitchen','Living and dining room','Balcony','Two bathrooms','Air conditioning in every room','Smart TV','Fast Wi-Fi','Washing machine'] },
-  { roomTypeId:'ph3', name:'Three-Bedroom Penthouse', maxAdults:6, ratePerNight:180000, size:'3 bedrooms', bed:'3 en-suite bedrooms',
-    lines:['Three en-suite bedrooms','Full kitchen and dining','Top-floor views','Up to 6 guests'],
-    about:'The top floor of Kiniz, with three en-suite bedrooms and room for the whole family to spread out.',
-    has:['Three en-suite bathrooms','Full kitchen','Large living room','Dining for six','Top-floor views','Smart TVs','Fast Wi-Fi','Washing machine'] },
+  { roomTypeId:'single', kind:'hotel', name:'Luxury Single Room', maxAdults:2, ratePerNight:88550, sqm:10, bedrooms:1, baths:1, bed:'1 king bed', img:'images/room-single.jpg',
+    lines:['King bed','En-suite bathroom','Work desk','Balcony'],
+    about:'A hotel room for one or two, cleaned every day. Right for a business trip or a night or two in Uyo.',
+    has:['Air conditioning','Smart TV','Free Wi-Fi','Work desk','Balcony with city view','In-room safe','Daily housekeeping','Room service'] },
+  { roomTypeId:'apt1', kind:'apartment', name:'One-Bedroom Apartment', maxAdults:3, ratePerNight:164450, sqm:20, bedrooms:1, baths:1, bed:'1 queen bed + sofa bed', img:'images/apt-1bed.jpg',
+    lines:['1 bedroom','Kitchen','Living room','Up to 3 guests'],
+    about:'Your own small home: a bedroom, a living room with a sofa bed and a kitchen. Good for couples and longer stays.',
+    has:['Kitchen','Living room','Sofa bed','Air conditioning','Smart TV','Free Wi-Fi','Balcony','Weekly laundry on request'] },
+  { roomTypeId:'apt2', kind:'apartment', name:'Two-Bedroom Apartment', maxAdults:4, ratePerNight:265650, sqm:30, bedrooms:2, baths:2, bed:'2 double beds + sofa bed', img:'images/apt-2bed.jpg',
+    lines:['2 bedrooms','Kitchen','Living and dining','Up to 4 guests'],
+    about:'Two bedrooms, a shared living room and a kitchen. Built for small families and friends travelling together.',
+    has:['Kitchen','Living and dining room','Two bathrooms','Balcony','Air conditioning','Smart TV','Free Wi-Fi','Sofa bed'] },
+  { roomTypeId:'apt3', kind:'apartment', name:'Three-Bedroom Apartment', maxAdults:6, ratePerNight:328900, sqm:40, bedrooms:3, baths:3, bed:'3 bedrooms', img:'images/apt-3bed.jpg',
+    lines:['3 bedrooms','Kitchen','Living and dining','Up to 6 guests'],
+    about:'Room for the whole family: three bedrooms, a big living room, a dining table and a kitchen.',
+    has:['Kitchen','Large living room','Dining for six','Three bathrooms','Balcony','Air conditioning','Smart TVs','Free Wi-Fi'] },
+  { roomTypeId:'apt4', kind:'apartment', name:'Four-Bedroom Luxury Apartment', maxAdults:8, ratePerNight:480700, sqm:50, bedrooms:4, baths:4, bed:'4 bedrooms', img:'images/apt-4bed.jpg',
+    lines:['4 bedrooms','Kitchen','Living and dining','Up to 8 guests'],
+    about:'The largest home at Kiniz. Four bedrooms with connecting rooms, for big families, teams and wedding guests.',
+    has:['Kitchen','Living and dining room','Four bathrooms','Connecting rooms','Air conditioning','Smart TVs','Free Wi-Fi','Balcony'] },
 ];
+const KIND = { hotel:'Hotel room', apartment:'Serviced apartment' };
 
 const $ = (id) => document.getElementById(id);
 const naira = (n) => '₦' + Math.round(n).toLocaleString('en-NG');
@@ -26,12 +36,12 @@ const st = { search:null, avail:null, pick:null, hold:null };
 const page = document.body.dataset.page || 'home';
 
 /* ── shared header, footer, booking panel ── */
-const LOGO = `<svg width="42" height="42" viewBox="0 0 40 40" aria-hidden="true"><path d="M6 38V18a14 14 0 0 1 28 0v20" fill="none" stroke="#e0b064" stroke-width="1.6"/><path d="M16 14v18M16 24l8.5-10M18.6 21.3L25.5 32" fill="none" stroke="#f2eee6" stroke-width="1.8" stroke-linecap="round"/></svg>`;
+const LOGO = `<img class="mark" src="images/kiniz-mark.png" alt="" width="56" height="30">`;
 const LINKS = [['home','index.html','Home'],['rooms','rooms.html','Rooms'],['dining','dining.html','Pool & Dining'],['gallery','gallery.html','Gallery'],['contact','contact.html','Contact']];
 document.body.insertAdjacentHTML('afterbegin', `
 <header id="hdr" class="${page === 'home' ? '' : 'solid'}">
   <div class="wrap bar">
-    <a class="brand" href="index.html" aria-label="Kiniz Apartments and Hotel, home">${LOGO}<span><b>KINIZ</b><small>APARTMENTS &amp; HOTEL</small></span></a>
+    <a class="brand" href="index.html" aria-label="Kiniz Apartments and Hotel, home">${LOGO}<span><b>KINIZ</b><small>LUXURY APARTMENTS &amp; HOTELS</small></span></a>
     <nav>
       ${LINKS.map(([k, h, t]) => `<a href="${h}"${k === page ? ' aria-current="page"' : ''}>${t}</a>`).join('')}
       <button class="btn" data-open>Book now</button>
@@ -44,13 +54,13 @@ document.body.insertAdjacentHTML('afterbegin', `
 document.body.insertAdjacentHTML('beforeend', `
 <footer>
   <div class="wrap foot">
-    <div><a class="brand" href="index.html">${LOGO}<span><b>KINIZ</b><small>APARTMENTS &amp; HOTEL</small></span></a>
+    <div><img class="flogo" src="images/kiniz-logo.png" alt="Kiniz Luxury Apartments" width="180" height="127">
       <p>20 Basumoh Gas Road, off Oron Road,<br>Osong Ama Estate, Uyo 520102, Akwa Ibom</p></div>
     <div><h4>Visit</h4>${LINKS.map(([, h, t]) => `<a href="${h}">${t}</a>`).join('')}</div>
-    <div><h4>Stay</h4>${ROOMS.map((r) => `<a href="rooms.html#${r.roomTypeId}">${r.name}</a>`).join('')}</div>
-    <div><h4>Times</h4><p>Check in from 2:00 pm<br>Check out by 12:00 noon<br>Front desk open 24 hours</p></div>
+    <div><h4>Hotel</h4>${ROOMS.filter((r) => r.kind === 'hotel').map((r) => `<a href="rooms.html#${r.roomTypeId}">${r.name}</a>`).join('')}<h4 style="margin-top:22px">Apartments</h4>${ROOMS.filter((r) => r.kind === 'apartment').map((r) => `<a href="rooms.html#${r.roomTypeId}">${r.name.replace(' Apartment','').replace(' Luxury','')}</a>`).join('')}</div>
+    <div><h4>Times</h4><p>Check in from 3:00 pm<br>Check out by 11:00 am<br>Front desk open 24 hours</p></div>
   </div>
-  <div class="wrap fine"><span>© ${new Date().getFullYear()} Kiniz Apartments &amp; Hotel, Uyo</span><span>Bookings powered by <a href="https://xenia.ng" target="_blank" rel="noopener">Xenia</a></span></div>
+  <div class="wrap fine"><span>© ${new Date().getFullYear()} Kiniz Luxury Apartments &amp; Hotels, Uyo</span><span>Bookings powered by <a href="https://xenia.ng" target="_blank" rel="noopener">Xenia</a></span></div>
 </footer>
 <div class="scrim" id="scrim"></div>
 <aside class="drawer" id="drawer" aria-label="Book your stay" aria-live="polite">
@@ -63,7 +73,7 @@ document.body.insertAdjacentHTML('beforeend', `
       <div class="fld"><label for="dci">Check in</label><input id="dci" type="date" required></div>
       <div class="fld"><label for="dco">Check out</label><input id="dco" type="date" required></div>
     </div>
-    <div class="fld"><label for="dad">Guests</label><select id="dad">${[1,2,3,4,5,6].map((n) => `<option value="${n}"${n === 2 ? ' selected' : ''}>${n} guest${n > 1 ? 's' : ''}</option>`).join('')}</select></div>
+    <div class="fld"><label for="dad">Guests</label><select id="dad">${[1,2,3,4,5,6,7,8].map((n) => `<option value="${n}"${n === 2 ? ' selected' : ''}>${n} guest${n > 1 ? 's' : ''}</option>`).join('')}</select></div>
     <button class="btn" type="submit" id="dgo">See rooms</button>
     <div id="m0"></div>
   </form>
@@ -86,7 +96,7 @@ document.body.insertAdjacentHTML('beforeend', `
     <div class="fld"><label for="gx">Notes for the hotel</label><textarea id="gx" rows="2" placeholder="Arrival time, airport pickup…"></textarea></div>
     <div class="sum" id="sum"></div>
     <button class="btn" type="submit" id="confirm">Confirm booking</button>
-    <p class="note">Pay at the hotel. We hold your room for 15 minutes while you finish.</p>
+    <p class="note">No payment now. The front desk will send details for the 50% deposit that secures your stay.</p>
     <div id="m3"></div>
     <button class="link" type="button" data-back="pick">Change room</button>
   </form>
@@ -182,7 +192,10 @@ function renderOptions(preferId) {
   const { search:s, avail:a } = st;
   $('pick-sub').textContent = `${fmtDay(s.checkIn)} to ${fmtDay(s.checkOut)} · ${a.nights} night${a.nights > 1 ? 's' : ''} · ${s.adults} guest${s.adults > 1 ? 's' : ''}`;
   $('opts').innerHTML = '';
+  let lastKind = null;
   a.roomTypes.forEach((r) => {
+    const kind = (ROOMS.find((x) => x.roomTypeId === r.roomTypeId) || {}).kind;
+    if (kind && kind !== lastKind) { lastKind = kind; $('opts').insertAdjacentHTML('beforeend', `<p class="grp">${kind === 'hotel' ? 'Hotel rooms' : 'Serviced apartments'}</p>`); }
     const ok = r.fits && r.available > 0;
     const d = document.createElement('div');
     d.className = 'opt' + (ok ? '' : ' off'); d.tabIndex = ok ? 0 : -1; d.setAttribute('role', 'radio');
@@ -191,7 +204,7 @@ function renderOptions(preferId) {
     d.children[1].textContent = naira(r.totalPerRoom);
     d.children[2].textContent = !r.fits ? `Takes up to ${r.maxAdults} guests` : r.available <= 0 ? 'Sold out for these dates' : r.available <= 2 ? `Only ${r.available} left` : `Up to ${r.maxAdults} guests`;
     d.children[3].textContent = `${naira(r.ratePerNight)} / night`;
-    const pick = () => { if (!ok) return; st.pick = r; [...$('opts').children].forEach((c) => c.classList.remove('sel')); d.classList.add('sel'); $('to-details').disabled = false; };
+    const pick = () => { if (!ok) return; st.pick = r; $('opts').querySelectorAll('.opt').forEach((c) => c.classList.remove('sel')); d.classList.add('sel'); $('to-details').disabled = false; };
     d.addEventListener('click', pick); d.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(); } });
     $('opts').appendChild(d);
     if (ok && preferId === r.roomTypeId) pick();
@@ -247,30 +260,35 @@ if ($('strip')) {
   const words = ['Outdoor pool','Poolside bar','Full kitchens','Gated estate','Free parking','Fast Wi-Fi','Restaurant','Meeting space'];
   $('strip').innerHTML = [...words, ...words].map((w) => `<span>${w}</span>`).join('');
 }
-/* short room list (home) */
-if ($('rooms')) ROOMS.forEach((r) => {
-  const el = document.createElement('article'); el.className = 'room';
-  el.innerHTML = `<div><h3><a href="rooms.html#${r.roomTypeId}"></a></h3><ul></ul></div>
-    <div class="price"><small>FROM</small><b>${naira(r.ratePerNight)}</b><small>PER NIGHT</small><br><button class="btn line" data-open data-room="${r.roomTypeId}">Book this</button></div>`;
-  el.querySelector('h3 a').textContent = r.name;
-  r.lines.forEach((t) => { const li = document.createElement('li'); li.textContent = t; el.querySelector('ul').appendChild(li); });
-  $('rooms').appendChild(el);
-});
-/* full room pages (rooms.html) */
-if ($('room-detail')) ROOMS.forEach((r, i) => {
-  const el = document.createElement('article'); el.className = 'rd' + (i % 2 ? ' flip' : ''); el.id = r.roomTypeId;
-  const img = ['images/courtyard.jpg','images/street.jpg','images/walkway.jpg'][i];
-  el.innerHTML = `<div class="rd-img"><img src="${img}" alt="" loading="lazy"><span class="tag">Photo of the building · room photos coming</span></div>
-    <div class="rd-txt"><span class="kicker"></span><h2></h2><p></p>
-      <dl class="specs"><div><dt>Size</dt><dd></dd></div><div><dt>Beds</dt><dd></dd></div><div><dt>Guests</dt><dd>Up to ${r.maxAdults}</dd></div></dl>
-      <ul class="has"></ul>
-      <div class="rd-buy"><div><small>FROM</small><b>${naira(r.ratePerNight)}</b><small>PER NIGHT</small></div><button class="btn" data-open data-room="${r.roomTypeId}">Book this</button></div></div>`;
-  el.querySelector('.kicker').textContent = r.size;
-  el.querySelector('h2').textContent = r.name;
-  el.querySelector('.rd-txt p').textContent = r.about;
-  const dd = el.querySelectorAll('.specs dd'); dd[0].textContent = r.size; dd[1].textContent = r.bed;
-  r.has.forEach((t) => { const li = document.createElement('li'); li.textContent = t; el.querySelector('.has').appendChild(li); });
-  $('room-detail').appendChild(el);
+/* home: hotel vs apartments, side by side */
+const from = (k) => Math.min(...ROOMS.filter((r) => r.kind === k).map((r) => r.ratePerNight));
+document.querySelectorAll('[data-from]').forEach((el) => el.textContent = naira(from(el.dataset.from)));
+/* compare table: every room on one scale */
+if ($('compare')) {
+  const maxSqm = Math.max(...ROOMS.map((r) => r.sqm));
+  $('compare').innerHTML = `<table><thead><tr><th>Stay</th><th>Type</th><th>Size</th><th class="n">Bedrooms</th><th class="n">Guests</th><th>Kitchen</th><th class="n">From / night</th><th></th></tr></thead><tbody>${ROOMS.map((r) => `
+    <tr class="${r.kind}"><td><a href="rooms.html#${r.roomTypeId}">${r.name}</a></td><td><span class="pill ${r.kind}">${KIND[r.kind]}</span></td>
+    <td><div class="meter"><i style="width:${Math.round(r.sqm / maxSqm * 100)}%"></i></div><small>${r.sqm} m²</small></td>
+    <td class="n">${r.bedrooms}</td><td class="n">${r.maxAdults}</td><td>${r.kind === 'apartment' ? 'Yes' : 'No'}</td>
+    <td class="n">${naira(r.ratePerNight)}</td><td><button class="btn line sm" data-open data-room="${r.roomTypeId}">Book</button></td></tr>`).join('')}</tbody></table>`;
+}
+/* rooms page */
+['hotel','apartment'].forEach((kind) => {
+  const box = $(kind === 'hotel' ? 'hotel-rooms' : 'apartments-list'); if (!box) return;
+  ROOMS.filter((r) => r.kind === kind).forEach((r, i) => {
+    const el = document.createElement('article'); el.className = 'rd' + (i % 2 ? ' flip' : ''); el.id = r.roomTypeId;
+    el.innerHTML = `<div class="rd-img"><img src="${r.img}" alt="" loading="lazy"><span class="pill ${kind} on-img">${KIND[kind]}</span></div>
+      <div class="rd-txt"><span class="kicker"></span><h2></h2><p></p>
+        <dl class="specs"><div><dt>Size</dt><dd>${r.sqm} m²</dd></div><div><dt>Bedrooms</dt><dd>${r.bedrooms}</dd></div><div><dt>Bathrooms</dt><dd>${r.baths}</dd></div><div><dt>Guests</dt><dd>Up to ${r.maxAdults}</dd></div></dl>
+        <ul class="has"></ul>
+        <div class="rd-buy"><div><small>FROM</small><b>${naira(r.ratePerNight)}</b><small>PER NIGHT</small></div><button class="btn" data-open data-room="${r.roomTypeId}">Book this</button></div></div>`;
+    el.querySelector('.kicker').textContent = r.bed;
+    el.querySelector('h2').textContent = r.name;
+    el.querySelector('.rd-txt p').textContent = r.about;
+    el.querySelector('img').alt = r.name;
+    r.has.forEach((t) => { const li = document.createElement('li'); li.textContent = t; el.querySelector('.has').appendChild(li); });
+    box.appendChild(el);
+  });
 });
 
 /* gallery lightbox */
