@@ -51,7 +51,7 @@ nav .btn{padding:12px 22px}
 
 /* ── hero ── */
 .hero{position:relative;min-height:min(100svh,920px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
-.hero .bg{position:absolute;inset:0;z-index:-2;background:#111 url(images/courtyard.jpg) center/cover;animation:drift 22s ease-in-out infinite alternate}
+.hero .bg{position:absolute;inset:0;z-index:-2;background:#111 url(../images/courtyard.jpg) center/cover;animation:drift 22s ease-in-out infinite alternate}
 .hero::after{content:"";position:absolute;inset:0;z-index:-1;background:
   linear-gradient(180deg,rgba(10,13,12,.55) 0%,rgba(10,13,12,0) 30%,rgba(10,13,12,.2) 55%,var(--night) 100%),
   radial-gradient(60% 50% at 20% 70%,rgba(10,13,12,.6),transparent)}
@@ -122,7 +122,7 @@ section{padding-block:110px}
 
 /* ── pool feature ── */
 .feature{position:relative;min-height:640px;display:flex;align-items:center;overflow:hidden;isolation:isolate}
-.feature .bg{position:absolute;inset:0;z-index:-2;background:#111 url(images/pool.jpg) center/cover}
+.feature .bg{position:absolute;inset:0;z-index:-2;background:#111 url(../images/pool.jpg) center/cover}
 .feature::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(10,13,12,.92) 0%,rgba(10,13,12,.55) 45%,rgba(10,13,12,.1) 100%)}
 .feature h2{font-size:clamp(2.8rem,6vw,5.4rem);margin:18px 0 22px;max-width:9ch}
 .feature p{max-width:40ch;color:#d4d0c7}
@@ -157,7 +157,7 @@ section{padding-block:110px}
 
 /* ── final CTA + footer ── */
 .cta{position:relative;text-align:center;padding-block:130px;overflow:hidden;isolation:isolate}
-.cta .bg{position:absolute;inset:0;z-index:-2;background:#111 url(images/walkway.jpg) center/cover}
+.cta .bg{position:absolute;inset:0;z-index:-2;background:#111 url(../images/walkway.jpg) center/cover}
 .cta::after{content:"";position:absolute;inset:0;z-index:-1;background:rgba(10,13,12,.72)}
 .cta h2{font-size:clamp(2.8rem,7vw,6rem);margin:18px auto 30px;max-width:14ch}
 footer{border-top:1px solid var(--line);padding-block:34px;color:var(--dim);font-size:.86rem}
